@@ -14,6 +14,7 @@ import org.springframework.util.ObjectUtils;
 @Slf4j
 @NoArgsConstructor // 기본생성자
 @Table(name = "partners")
+@Getter
 public class Partner extends AbstractEntity {
 
     private static final String PREFIX_PARTNER = "ptn_";
