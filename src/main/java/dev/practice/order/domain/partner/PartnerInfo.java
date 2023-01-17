@@ -1,10 +1,12 @@
 package dev.practice.order.domain.partner;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder
+@AllArgsConstructor
 public class PartnerInfo {
     private Long id;
     private String partnerToken;

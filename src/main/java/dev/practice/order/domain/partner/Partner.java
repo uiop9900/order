@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
 @Entity
 @Slf4j
@@ -47,10 +48,9 @@ public class Partner extends AbstractEntity {
 
     @Builder
     public Partner(String partnerName, String businessNo, String email) { // 필수값들이라 무조건 받게끔 만든다.
-        if (ObjectUtils.isEmpty(partnerName)) throw new RuntimeException("empty partnerName");
-        if (ObjectUtils.isEmpty(businessNo)) throw new RuntimeException("empty businessNo");
-        if (ObjectUtils.isEmpty(email)) throw new RuntimeException("empty email");
-
+        if (StringUtils.isEmpty(partnerName)) throw new RuntimeException("empty partnerName");
+        if (StringUtils.isEmpty(businessNo)) throw new RuntimeException("empty businessNo");
+        if (StringUtils.isEmpty(email)) throw new RuntimeException("empty email");
 
         this.partnerToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_PARTNER);
         this.partnerName = partnerName;
