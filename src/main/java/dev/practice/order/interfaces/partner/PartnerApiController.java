@@ -18,10 +18,13 @@ public class PartnerApiController {
 
     private final PartnerFacade partnerFacade;
 
+    private final PartnerDtoMapper partnerDtoMapper;
+
     @PostMapping
     public CommonResponse registerPartner(PartnerDto.RegisterRequest request) {
         // 1. 외부에서 전달된 파라미터(dto) -> Command, Criteria로 변경
-        PartnerCommand command = request.toCommand();
+        PartnerCommand command = partnerDtoMapper.of(request);
+        //PartnerCommand command = request.toCommand();
         // 2. FACADE 호출해서 PartnerInfo return 받음
         PartnerInfo partnerInfo = partnerFacade.registerPartner(command);
         // 3. return 된 PartnerInfo 를 응답값인 CommonResponse로 변환해서 최종 return

@@ -1,17 +1,21 @@
-package dev.practice.order.domain.item;
+package dev.practice.order.domain.item.optiongroup;
 
 import com.google.common.collect.Lists;
 import dev.practice.order.common.exeption.InvalidParamException;
 import dev.practice.order.domain.AbstractEntity;
+import dev.practice.order.domain.item.Item;
+import dev.practice.order.domain.item.option.ItemOption;
+import dev.practice.order.domain.item.optiongroup.ItemOptionGroup;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Getter
 @Entity
 @NoArgsConstructor
@@ -22,19 +26,15 @@ public class ItemOptionGroup extends AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // 양방향 참조
     @ManyToOne
-    @JoinColumn(name = "item_id") // 별도의 매핑테이블 없이 컬럼으로 바로 매핑이 된다.
-    private Item item; // 아이템 하나에 optionGroup은 여러개.
-
-    private Integer ordering; // 순서
+    @JoinColumn(name = "item_id")
+    private Item item;
+    private Integer ordering;
     private String itemOptionGroupName;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "itemOptionGroup", cascade = CascadeType.PERSIST)
     private List<ItemOption> itemOptionList = Lists.newArrayList();
 
-
-    // item이 생성되면 따라서 만들어지기 떄문에 itemOptionGroup는 생성되는 Item을 받아서 빌드한다.
     @Builder
     public ItemOptionGroup(Item item, Integer ordering, String itemOptionGroupName) {
         if (item == null) throw new InvalidParamException("ItemOptionGroup.item");
@@ -45,5 +45,10 @@ public class ItemOptionGroup extends AbstractEntity {
         this.item = item;
         this.ordering = ordering;
         this.itemOptionGroupName = itemOptionGroupName;
+    }
+
+    public ItemOptionGroup addItemOption(ItemOption itemOption) {
+        this.itemOptionList.add(itemOption);
+        return this;
     }
 }

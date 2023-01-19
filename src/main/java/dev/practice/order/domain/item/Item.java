@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import dev.practice.order.common.exeption.InvalidParamException;
 import dev.practice.order.common.util.TokenGenerator;
 import dev.practice.order.domain.AbstractEntity;
+import dev.practice.order.domain.item.optiongroup.ItemOptionGroup;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -65,11 +66,11 @@ public class Item extends AbstractEntity {
         this.status = Status.PREPARE;
     }
 
-    public void changeOnSales() {
+    public void changeOnSale() {
         this.status = Status.ON_SALES;
     }
 
-    public void changeEndOfSales() {
+    public void changeEndOfSale() {
         this.status = Status.END_OF_SALES;
     }
 }

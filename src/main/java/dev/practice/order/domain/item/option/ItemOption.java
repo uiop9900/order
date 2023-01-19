@@ -1,13 +1,19 @@
-package dev.practice.order.domain.item;
+package dev.practice.order.domain.item.option;
+
+
 
 import dev.practice.order.common.exeption.InvalidParamException;
 import dev.practice.order.domain.AbstractEntity;
+import dev.practice.order.domain.item.optiongroup.ItemOptionGroup;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
+
+@Slf4j
 @Getter
 @Entity
 @NoArgsConstructor
@@ -21,10 +27,9 @@ public class ItemOption extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "item_option_group_id")
     private ItemOptionGroup itemOptionGroup;
-
-    private Integer ordering; // 순서
+    private Integer ordering;
     private String itemOptionName;
-    private Long itemOptionPrice; // 옵션에 따라 추가되는 금액
+    private Long itemOptionPrice;
 
     @Builder
     public ItemOption(
@@ -43,5 +48,4 @@ public class ItemOption extends AbstractEntity {
         this.itemOptionName = itemOptionName;
         this.itemOptionPrice = itemOptionPrice;
     }
-
 }
